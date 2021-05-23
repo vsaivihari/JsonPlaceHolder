@@ -13,7 +13,9 @@
         android:textSize="24sp"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
+        android:gravity="center"
         android:maxLines="1"
+        android:layout_marginTop="20dp"
         android:textAppearance="?attr/textAppearanceSubtitle1"
         android:textColor= "@color/black" />
 
@@ -24,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/user_name"
         android:textSize="24sp"
+        android:gravity="center"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:maxLines="1"
