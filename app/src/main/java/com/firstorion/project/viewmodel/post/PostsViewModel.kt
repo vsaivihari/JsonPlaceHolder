@@ -26,6 +26,12 @@ class PostsViewModel(
         }
     }
 
+    fun addPost(userId: Int, body: String, title: String) {
+        viewModelScope.launch {
+            postsRepo.uploadPost(userId, body, title)
+        }
+    }
+
 }
 
 class PostsViewModelFactory(private val repository: OrionRepository) : ViewModelProvider.Factory {

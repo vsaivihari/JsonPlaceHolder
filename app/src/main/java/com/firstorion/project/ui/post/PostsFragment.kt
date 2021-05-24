@@ -11,15 +11,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.firstorion.project.OrionApplication
 import com.firstorion.project.R
 import com.firstorion.project.repo.post.Post
+import com.firstorion.project.ui.add.AddFragment
 import com.firstorion.project.ui.user.UserFragment
 import com.firstorion.project.viewmodel.post.PostsViewModel
 import com.firstorion.project.viewmodel.post.PostsViewModelFactory
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 class PostsFragment : Fragment(), PostsRVAdapter.OnPostClickedListener {
 
     private val postsAdapter = PostsRVAdapter(this)
-
+    private lateinit var fab: FloatingActionButton
 
     private val postsViewModel: PostsViewModel by viewModels {
         PostsViewModelFactory((this.activity?.application as OrionApplication).repository)
@@ -31,6 +33,10 @@ class PostsFragment : Fragment(), PostsRVAdapter.OnPostClickedListener {
     ): View? {
         val v = inflater.inflate(R.layout.fragment_posts, container, false)
 
+        fab = v.findViewById(R.id.fab)
+        fab.setOnClickListener {
+            launchAddFragment()
+        }
         val rv = v.findViewById<RecyclerView>(R.id.postsRecyclerView)
         rv.layoutManager = LinearLayoutManager(v.context)
         rv.adapter = postsAdapter
@@ -41,6 +47,11 @@ class PostsFragment : Fragment(), PostsRVAdapter.OnPostClickedListener {
     override fun onResume() {
         super.onResume()
         postsViewModel.getPosts()
+    }
+
+    private fun launchAddFragment() {
+        val addFragment = AddFragment()
+        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.fragmentContainer, addFragment)?.addToBackStack(null)?.commit()
     }
 
     private fun subscribeObservers() {

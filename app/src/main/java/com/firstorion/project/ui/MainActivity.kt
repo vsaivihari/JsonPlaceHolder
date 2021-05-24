@@ -7,6 +7,7 @@ import com.firstorion.project.R
 import com.firstorion.project.ui.post.PostsFragment
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Stetho.initializeWithDefaults(this);

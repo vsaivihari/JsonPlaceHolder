@@ -1,9 +1,12 @@
 package com.firstorion.project.network
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.firstorion.project.repo.post.Post
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
@@ -20,7 +23,7 @@ interface OrionService {
     suspend fun getUserWithId(@Path("userId") userId: Int): UserNetworkEntity
 
     @POST("posts")
-    suspend fun uploadPost(userId: Int, title: String, body: String): PostNetworkEntity
+    suspend fun uploadPost(@Body post: Post): PostNetworkEntity
 
 }
 
@@ -30,6 +33,7 @@ private val okHttpClient = HttpLoggingInterceptor().run {
     builder.connectTimeout(5, TimeUnit.MINUTES) // connect timeout
         .writeTimeout(5, TimeUnit.MINUTES) // write timeout
         .readTimeout(5, TimeUnit.MINUTES) // read timeout
+        .addNetworkInterceptor(StethoInterceptor())
     builder.addInterceptor(this).build()
 }
 

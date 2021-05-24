@@ -22,7 +22,7 @@ class NetworkDataSource : IPostsNetwork, IUsersNetwork {
 
     override suspend fun uploadPost(userId: Int, title: String, body: String): Post {
         return withContext(Dispatchers.IO) {
-            val postNetworkEntity = OrionApi.orionService.uploadPost(userId, title, body)
+            val postNetworkEntity = OrionApi.orionService.uploadPost(Post(userId,(0..10).random(), body, title))
             postNetworkMapper.mapFromEntity(postNetworkEntity)
         }
     }
